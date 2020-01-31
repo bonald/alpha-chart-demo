@@ -3,6 +3,7 @@
     :data="chart"
     :width="this.width"
     :height="this.height"
+    :toolbar="true"
     :color-back="colors.colorBack"
     :color-grid="colors.colorGrid"
     :color-text="colors.colorText"
@@ -11,8 +12,7 @@
 
 <script>
 import Data from "./data/data.json";
-import { TradingVue } from "./vendor/trading-vue.min.js";
-
+import { TradingVue, IndiCube } from "./vendor/trading-vue.min.js";
 export default {
   name: "app",
   methods: {
@@ -26,17 +26,18 @@ export default {
   },
   mounted() {
     window.addEventListener("resize", this.onResize);
-    setTimeout(() => {
-      // Async data setup
-      this.$set(this, "chart", Data);
-    }, 0);
+    this.chart.addChartIndicator("sma", true, {
+      periods: [5, 10, 20, 60, 120],
+      lineWidths: [1, 1, 1, 1, 1],
+      colors: ["#B46EF0", "#FF3200", "#F0B432", "#5FB464", "#058787"]
+    });
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.onResize);
   },
   data() {
     return {
-      chart: {}, // Data will be here,
+      chart: new IndiCube(Data),
       width: window.innerWidth,
       height: window.innerHeight,
       colors: {
