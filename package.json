@@ -29,13 +29,16 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions"
+    ">0.25%",
+    "last 2 versions",
+    "not ie <= 8"
   ]
 }

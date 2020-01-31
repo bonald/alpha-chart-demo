@@ -1,28 +1,60 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <trading-vue
+    :data="chart"
+    :width="this.width"
+    :height="this.height"
+    :color-back="colors.colorBack"
+    :color-grid="colors.colorGrid"
+    :color-text="colors.colorText"
+  ></trading-vue>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Data from "./data/data.json";
+import { TradingVue } from "./vendor/trading-vue.min.js";
 
 export default {
-  name: 'app',
+  name: "app",
+  methods: {
+    onResize() {
+      this.width = window.innerWidth;
+      this.height = window.innerHeight;
+    }
+  },
   components: {
-    HelloWorld
+    TradingVue
+  },
+  mounted() {
+    window.addEventListener("resize", this.onResize);
+    setTimeout(() => {
+      // Async data setup
+      this.$set(this, "chart", Data);
+    }, 0);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize);
+  },
+  data() {
+    return {
+      chart: {}, // Data will be here,
+      width: window.innerWidth,
+      height: window.innerHeight,
+      colors: {
+        colorBack: "#fff",
+        colorGrid: "#eee",
+        colorText: "#333"
+      }
+    };
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+html,
+body {
+  background-color: #000;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 </style>
