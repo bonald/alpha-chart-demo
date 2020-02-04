@@ -31,11 +31,12 @@
     ],
     "rules": {
       "no-console": "off"
-    },
-    "parserOptions": {
-      "parser": "babel-eslint"
     }
   },
+  "eslintIgnore": [
+    "node_modules",
+    "vendor"
+  ],
   "browserslist": [
     ">0.25%",
     "last 2 versions",

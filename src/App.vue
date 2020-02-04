@@ -26,11 +26,13 @@ export default {
   },
   mounted() {
     window.addEventListener("resize", this.onResize);
-    this.chart.addChartIndicator("sma", true, {
+    this.chart.addIndicator("sma", true, {
       periods: [5, 10, 20, 60, 120],
       lineWidths: [1, 1, 1, 1, 1],
       colors: ["#B46EF0", "#FF3200", "#F0B432", "#5FB464", "#058787"]
     });
+    this.chart.addIndicator("vol", false);
+    this.chart.addIndicator("rsi", false);
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.onResize);
